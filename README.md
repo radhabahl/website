@@ -61,10 +61,12 @@ python3 -m http.server 8000
 | Item | Link |
 | --- | --- |
 | Research paper (IJHSS) | https://www.internationaljournalssrg.org/IJHSS/2026/Volume13-Issue3/IJHSS-V13I3P107.pdf |
-| Research paper (IJSSRR) | https://www.ijssrr.com/journal/article/view/3447 |
+| Research paper (IJSSRR) | https://www.ijssrr.com/journal/en/article/view/3447/2361 |
 | Hasta Kalā label | https://www.hastakala.co.in/ |
-| Inheritance documentary | https://www.hastakala.co.in/film |
+| Inheritance documentary (embedded) | https://youtu.be/C3F-KIzLZxg |
+| Inheritance site | https://www.hastakala.co.in/film |
 | Workbook on Amazon | https://www.amazon.com/dp/B0H72GWCJT |
 | Workbook on Flipkart | https://dl.flipkart.com/s/0Xbpk_NNNN |
 | Workbook on Notion Press | https://notionpress.com/in/read/hasta-kal |
 | Resume | *Placeholder: set `RESUME_URL` in `assets/js/main.js`* |
+| Art Portfolio | *Placeholder: set `ART_PORTFOLIO_URL` in `assets/js/main.js`* |

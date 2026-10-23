@@ -8,6 +8,9 @@
    ========================================================================== */
 const RESUME_URL = '';
 
+/* ART PORTFOLIO LINK: paste it between the quotes the same way. */
+const ART_PORTFOLIO_URL = '';
+
 (function () {
   'use strict';
 
@@ -23,17 +26,44 @@ const RESUME_URL = '';
     toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2800);
   }
 
-  document.querySelectorAll('[data-resume]').forEach((link) => {
-    if (RESUME_URL) {
-      link.href = RESUME_URL;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-    } else {
-      link.addEventListener('click', (event) => {
-        event.preventDefault();
-        showToast('Resume coming soon — check back shortly.');
-      });
-    }
+  function wireLink(selector, url, comingSoon) {
+    document.querySelectorAll(selector).forEach((link) => {
+      if (url) {
+        link.href = url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+      } else {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          showToast(comingSoon);
+        });
+      }
+    });
+  }
+
+  wireLink('[data-resume]', RESUME_URL, 'Resume coming soon — check back shortly.');
+  wireLink('[data-art-portfolio]', ART_PORTFOLIO_URL, 'Art portfolio coming soon — check back shortly.');
+
+  /* ---------- Documentary player ---------- */
+  // The YouTube player loads only when someone presses play. YouTube refuses
+  // embeds from a page opened straight from disk (Error 153), so in that case
+  // the film opens on YouTube instead.
+  document.querySelectorAll('[data-video]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const id = button.dataset.video;
+      if (location.protocol === 'file:') {
+        window.open(`https://www.youtube.com/watch?v=${id}`, '_blank', 'noopener');
+        return;
+      }
+      const player = document.createElement('iframe');
+      player.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&playsinline=1`;
+      player.title = button.getAttribute('aria-label');
+      player.allow =
+        'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      player.referrerPolicy = 'strict-origin-when-cross-origin';
+      player.allowFullscreen = true;
+      button.replaceWith(player);
+    });
   });
 
   /* ---------- Mobile navigation ---------- */
