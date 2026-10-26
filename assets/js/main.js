@@ -6,7 +6,7 @@
      const RESUME_URL = 'assets/Radha-Bahl-Resume.pdf';
    While it is empty, every "Resume" button shows a "coming soon" message.
    ========================================================================== */
-const RESUME_URL = '';
+const RESUME_URL = 'assets/Radha-Bahl-Resume.pdf';
 
 /* ART PORTFOLIO LINK: paste it between the quotes the same way. */
 const ART_PORTFOLIO_URL = '';
