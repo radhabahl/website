@@ -9,7 +9,7 @@
 const RESUME_URL = 'assets/Resume%20-%20Radha%20Bahl.pdf';
 
 /* ART PORTFOLIO LINK: paste it between the quotes the same way. */
-const ART_PORTFOLIO_URL = '';
+const ART_PORTFOLIO_URL = 'https://drive.google.com/file/d/1njoylkXGmesdodmuA5iHL0-pFbS2gBB8/view';
 
 (function () {
   'use strict';
