@@ -1655,6 +1655,210 @@ ul.hero__roles {
   transform: translate(-50%, 0);
 }
 
+/* ---------- Art portfolio viewer ---------- */
+
+html.has-viewer {
+  overflow: hidden;
+}
+
+.viewer {
+  width: min(1100px, calc(100% - 32px));
+  height: min(92vh, 1000px);
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: transparent;
+  color: var(--ink-900);
+  overflow: visible;
+}
+
+.viewer::backdrop {
+  background: rgba(42, 10, 15, 0.72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.viewer[open] {
+  animation: viewer-in 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.viewer[open]::backdrop {
+  animation: viewer-fade 0.35s ease;
+}
+
+@keyframes viewer-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+}
+
+@keyframes viewer-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.viewer__frame {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--cream-50);
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.6);
+}
+
+.viewer__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px 16px 28px;
+  background: linear-gradient(180deg, var(--teal-800), var(--teal-900));
+  color: #fff;
+  border-bottom: 3px solid var(--gold-500);
+}
+
+.viewer__eyebrow {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+}
+
+.viewer__title {
+  margin: 2px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  font-weight: 500;
+  line-height: 1.1;
+  color: #fff;
+}
+
+.viewer__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.viewer__open {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(249, 230, 184, 0.35);
+  color: var(--gold-200);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.viewer__open:hover {
+  background: rgba(249, 230, 184, 0.1);
+  border-color: rgba(249, 230, 184, 0.6);
+}
+
+.viewer__close {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.viewer__close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+.viewer__open:focus-visible,
+.viewer__close:focus-visible {
+  outline: 2px solid var(--gold-400);
+  outline-offset: 2px;
+}
+
+.viewer__body {
+  position: relative;
+  flex: 1;
+  background: var(--cream-100);
+}
+
+.viewer__body iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.viewer__body.is-loaded iframe {
+  opacity: 1;
+}
+
+.viewer__loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: var(--ink-500);
+  font-size: 0.95rem;
+}
+
+.viewer__spinner {
+  width: 34px;
+  height: 34px;
+  border: 3px solid var(--cream-200);
+  border-top-color: var(--teal-700);
+  border-radius: 50%;
+  animation: viewer-spin 0.9s linear infinite;
+}
+
+@keyframes viewer-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 560px) {
+  .viewer {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .viewer__frame {
+    border-radius: 0;
+  }
+
+  .viewer__bar {
+    padding: 12px 12px 12px 18px;
+  }
+
+  .viewer__open {
+    padding: 8px 12px;
+    font-size: 0.82rem;
+  }
+}
+
 /* ---------- Reveal on scroll ---------- */
 
 .js .reveal {

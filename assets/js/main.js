@@ -44,6 +44,44 @@ const ART_PORTFOLIO_URL = 'https://drive.google.com/file/d/1njoylkXGmesdodmuA5iH
   wireLink('[data-resume]', RESUME_URL, 'Resume coming soon — check back shortly.');
   wireLink('[data-art-portfolio]', ART_PORTFOLIO_URL, 'Art portfolio coming soon — check back shortly.');
 
+  /* ---------- Art portfolio viewer ---------- */
+  // Opens the Drive PDF inside an on-page viewer. The link still works on its
+  // own (new tab) if the viewer can't be used, or with Cmd/Ctrl-click.
+  const viewer = document.querySelector('[data-viewer]');
+  const driveId = (ART_PORTFOLIO_URL.match(/\/d\/([\w-]+)/) || [])[1];
+
+  if (viewer && driveId && typeof viewer.showModal === 'function') {
+    const body = viewer.querySelector('.viewer__body');
+    viewer.querySelector('[data-viewer-open]').href = ART_PORTFOLIO_URL;
+
+    const openViewer = () => {
+      if (!body.querySelector('iframe')) {
+        const frame = document.createElement('iframe');
+        frame.src = `https://drive.google.com/file/d/${driveId}/preview`;
+        frame.title = 'Art Portfolio';
+        frame.allow = 'autoplay; fullscreen';
+        frame.addEventListener('load', () => body.classList.add('is-loaded'));
+        body.appendChild(frame);
+      }
+      viewer.showModal();
+      document.documentElement.classList.add('has-viewer');
+    };
+
+    viewer.addEventListener('close', () => document.documentElement.classList.remove('has-viewer'));
+    viewer.querySelector('[data-viewer-close]').addEventListener('click', () => viewer.close());
+    viewer.addEventListener('click', (event) => {
+      if (event.target === viewer) viewer.close(); // backdrop click
+    });
+
+    document.querySelectorAll('[data-art-portfolio]').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey) return;
+        event.preventDefault();
+        openViewer();
+      });
+    });
+  }
+
   /* ---------- Documentary player ---------- */
   // The YouTube player loads only when someone presses play. YouTube refuses
   // embeds from a page opened straight from disk (Error 153), so in that case
